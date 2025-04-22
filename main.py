@@ -39,6 +39,14 @@ def controlla_biglietti():
 while True:
     try:
         controlla_biglietti()
+        print("✅ Controllo effettuato.")
     except Exception as e:
-        print("Errore:", e)
+        print("❌ Errore:", e)
     time.sleep(CHECK_INTERVAL)
+
+#while True:
+    #try:
+        #controlla_biglietti()
+    #except Exception as e:
+        #print("Errore:", e)
+    #time.sleep(CHECK_INTERVAL)
