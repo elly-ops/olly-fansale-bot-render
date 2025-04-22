@@ -3,7 +3,7 @@ import requests
 import time
 from bs4 import BeautifulSoup
 
-# === CONFIGURAZIONE ===
+# === Configurazione ===
 BOT_TOKEN = os.getenv("BOT_TOKEN")  # Prende il token da una variabile d'ambiente
 CHAT_ID = '196652611'
 FANSALE_URL = 'https://www.fansale.it/tickets/all/olly/785187'
@@ -35,6 +35,7 @@ def controlla_biglietti():
                 invia_notifica(messaggio)
                 notificati.add(data)
 
+# Inizio del loop per il controllo
 while True:
     try:
         controlla_biglietti()
