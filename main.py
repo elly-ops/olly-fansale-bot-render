@@ -35,6 +35,10 @@ def controlla_biglietti():
                 invia_notifica(messaggio)
                 notificati.add(data)
 
+# === Avvio ===
+keep_alive()
+invia_notifica("🤖 Bot attivo su Render con endpoint test!")
+
 # Inizio del loop per il controllo
 while True:
     try:
