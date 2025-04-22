@@ -1,8 +1,10 @@
+import os
 import requests
 import time
 from bs4 import BeautifulSoup
 
-BOT_TOKEN = '7634342147:AAF-FEVUdJLsmJj5WPMUkVmVyEujsxZ9znk'
+# === CONFIGURAZIONE ===
+BOT_TOKEN = os.getenv("BOT_TOKEN")  # Prende il token da una variabile d'ambiente
 CHAT_ID = '196652611'
 FANSALE_URL = 'https://www.fansale.it/tickets/all/olly/785187'
 CHECK_INTERVAL = 30
@@ -14,8 +16,8 @@ def invia_notifica(messaggio):
     payload = {"chat_id": CHAT_ID, "text": messaggio}
     requests.post(url, data=payload)
 
-# Messaggio all'avvio
-invia_notifica("🤖 Bot attivo su Render! Controllo biglietti in corso...")
+# Notifica di attivazione bot
+invia_notifica("🤖 Bot attivo su Render con variabile d'ambiente! Controllo biglietti in corso...")
 
 def controlla_biglietti():
     response = requests.get(FANSALE_URL)
