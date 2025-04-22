@@ -14,7 +14,8 @@ notificati = set()
 def invia_notifica(messaggio):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     payload = {"chat_id": CHAT_ID, "text": messaggio}
-    requests.post(url, data=payload)
+    response = requests.post(url, data=payload)
+    print("🟢 Telegram response:", response.text)
 
 # === Controllo biglietti ===
 def controlla_biglietti():
