@@ -2,22 +2,44 @@ import os
 import requests
 import time
 from bs4 import BeautifulSoup
+from flask import Flask, request
+from threading import Thread
 
-# === Configurazione ===
-BOT_TOKEN = os.getenv("BOT_TOKEN")  # Prende il token da una variabile d'ambiente
+# === Config ===
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = '196652611'
 FANSALE_URL = 'https://www.fansale.it/tickets/all/olly/785187'
 CHECK_INTERVAL = 30
-
 notificati = set()
 
+# === Flask per endpoint Telegram ===
+app = Flask(__name__)
+
+@app.route('/', methods=['POST'])
+def webhook():
+    data = request.json
+    if 'message' in data:
+        message = data['message']
+        text = message.get('text', '')
+        chat_id = message['chat']['id']
+        if text.lower() == '/test' and str(chat_id) == CHAT_ID:
+            controlla_biglietti()
+            invia_notifica("✅ Test ricevuto! Controllo biglietti effettuato.")
+    return {'ok': True}
+
+def run():
+    app.run(host='0.0.0.0', port=10000)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.daemon = True
+    t.start()
+
+# === Funzioni bot ===
 def invia_notifica(messaggio):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     payload = {"chat_id": CHAT_ID, "text": messaggio}
     requests.post(url, data=payload)
-
-# Notifica di attivazione bot
-invia_notifica("🤖 Bot attivo su Render con variabile d'ambiente! Controllo biglietti in corso...")
 
 def controlla_biglietti():
     response = requests.get(FANSALE_URL)
@@ -39,7 +61,6 @@ def controlla_biglietti():
 keep_alive()
 invia_notifica("🤖 Bot attivo su Render con endpoint test!")
 
-# Inizio del loop per il controllo
 while True:
     try:
         controlla_biglietti()
