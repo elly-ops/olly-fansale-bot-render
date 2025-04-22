@@ -31,9 +31,9 @@ def invia_notifica(messaggio):
 def controlla_biglietti():
     response = requests.get(FANSALE_URL)
     soup = BeautifulSoup(response.text, 'html.parser')
-    
-    # Debug: stampa tutto l'HTML ricevuto per verificarne la struttura
-    print("📝 Contenuto HTML ricevuto:", soup.prettify()[:500])  # stampa i primi 500 caratteri dell'HTML
+
+    # Debug: stampa i primi 1000 caratteri dell'HTML per vedere la struttura
+    print("📝 Contenuto HTML ricevuto:", soup.prettify()[:1000])  # Stampa i primi 1000 caratteri
 
     eventi = soup.find_all("div", class_="ticketListElement")
 
