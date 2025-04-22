@@ -38,7 +38,7 @@ def controlla_biglietti():
         luogo_el = evento.find("div", class_="eventLocation")
         if data_el and luogo_el:
             data = data_el.get_text(strip=True)
-            if "mag" in data.lower() and data not in notificati:
+            if ("mag" in data.lower() or "mar" in data.lower()) and data not in notificati:
                 luogo = luogo_el.get_text(strip=True)
                 messaggio = f"🎟️ Biglietti disponibili per OLLY il {data} a {luogo}!\n{FANSALE_URL}"
                 invia_notifica(messaggio)
