@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 # === Config ===
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+print("🎯 BOT_TOKEN presente:", bool(BOT_TOKEN), flush=True)
 CHAT_ID = '196652611'
 FANSALE_URL = 'https://www.fansale.it/tickets/all/olly/785187'
 CHECK_INTERVAL = 30
@@ -13,9 +14,18 @@ notificati = set()
 
 # === Telegram ===
 def invia_notifica(messaggio):
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-    payload = {"chat_id": CHAT_ID, "text": messaggio}
-    requests.post(url, data=payload)
+    try:
+        url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+        payload = {"chat_id": CHAT_ID, "text": messaggio}
+        response = requests.post(url, data=payload)
+        print("📨 Risposta Telegram:", response.text, flush=True)
+    except Exception as e:
+        print("❌ Errore nell'invio notifica:", e, flush=True)
+
+#def invia_notifica(messaggio):
+    #url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+    #payload = {"chat_id": CHAT_ID, "text": messaggio}
+    #requests.post(url, data=payload)
 
 # === Controllo biglietti ===
 def controlla_biglietti():
