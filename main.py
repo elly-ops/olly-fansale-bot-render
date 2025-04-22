@@ -1,4 +1,5 @@
 import os
+import sys
 import requests
 import time
 from bs4 import BeautifulSoup
@@ -39,9 +40,11 @@ invia_notifica("🤖 Bot attivo su Render! Controllo biglietti in corso...")
 while True:
     try:
         controlla_biglietti()
-        print("✅ Controllo effettuato.")
+        print("✅ Controllo effettuato.", flush=True)
+        sys.stdout.flush()
     except Exception as e:
-        print("❌ Errore:", e)
+        print("❌ Errore:", e, flush=True)
+        sys.stdout.flush()
     time.sleep(CHECK_INTERVAL)
 
 #while True:
