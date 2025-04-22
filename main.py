@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 # === Config ===
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+print("🎯 BOT_TOKEN presente:", bool(BOT_TOKEN))  # stampa True o False
 CHAT_ID = '196652611'
 FANSALE_URL = 'https://www.fansale.it/tickets/all/olly/785187'
 CHECK_INTERVAL = 30
